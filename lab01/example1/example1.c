@@ -18,6 +18,9 @@ int sum(int x, int y)
 {
     // FIX: put `+` instead of `*`
     int z = x + y;
+
+    // We should concern about integer overflow
+    // (x + y) can have value bigger than integer maximum value
     return z;
 }
 

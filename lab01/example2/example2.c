@@ -55,7 +55,7 @@ int main()
     // assign values to arrayX
     for (int i = 0; i < array_size; i++)
     {
-        // FIX: repalced array1 by array
+        // FIX: replaced array1 by array
         array2[i] = 10 * i;
     }
 

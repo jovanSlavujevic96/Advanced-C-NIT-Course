@@ -52,7 +52,9 @@ void print(int *values, int *indexes, int n)
 {
     int i = 0;
     printf("Up to the first treshold: ");
-    while (values[i] > TRESHOLD)
+
+    // FIX: Added (i<n) in order to stop iteration through fixed array
+    while ((i < n) && (values[i] > TRESHOLD))
     {
         printf("%d(%d) ", values[i], indexes[i]);
         i++;
