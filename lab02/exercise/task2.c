@@ -27,7 +27,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#define IS_BIG_ENDIAN (!*(unsigned char *)&(uint16_t){1})
+#define IS_BIG_ENDIAN (!*(uint8_t*)&(uint16_t){1})
 
 
 void printBinary(uint8_t* number);
