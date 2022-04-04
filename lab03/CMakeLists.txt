@@ -1,0 +1,11 @@
+cmake_minimum_required(VERSION 3.16)
+project(lab03 C ASM)
+
+add_subdirectory(task1)
+add_executable(task2 task2/object_lifetime_e1.c)
+add_executable(task3 task3/uninitialized.c)
+add_executable(task4 task4/const_parameter.c)
+add_executable(task5 task5/program.c)
+add_executable(task6 task6/fibonacci.c task6/functions.c)
+add_executable(task7 task7/program.c)
+add_executable(task8 task8/e_functions.c task8/functionExamples.S)

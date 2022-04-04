@@ -29,7 +29,6 @@
 
 #define IS_BIG_ENDIAN (!*(uint8_t*)&(uint16_t){1})
 
-
 void printBinary(uint8_t* number);
 void printSignedChar(int8_t num);
 

@@ -6,5 +6,8 @@
 // Recursive function
 int_least64_t fibonacci(int_least16_t n);
 
+// MY SOLUTION
+int_least64_t myFibonacci(int_least16_t n);
+
 #endif /* FIBONACCI_H_ */
 
