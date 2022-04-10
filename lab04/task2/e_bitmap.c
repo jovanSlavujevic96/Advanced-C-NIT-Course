@@ -37,11 +37,11 @@ static void calculateAverageRGB(const uint_least8_t* bitmapData, int_least32_t w
 static void mean_filter(const uint_least8_t* bitmapData, uint_least8_t* outData, int_least32_t width, int_least32_t height)
 {
 	int_least32_t i,j,k,l,m;
-	uint_leaset16_t sum = 0; // max values 255 * 9 > 2^8 && < 2^16
+	uint_least16_t sum = 0; // max values 255 * 9 > 2^8 && < 2^16
 
-	for (i=1; i<iHeight-1; i++)
+	for (i=1; i<height-1; i++)
 	{
-		for (j=1; j<iWidth-1; j++)
+		for (j=1; j<width-1; j++)
 		{
 			for (k=0; k<3; k++)
 			{
@@ -49,10 +49,10 @@ static void mean_filter(const uint_least8_t* bitmapData, uint_least8_t* outData,
 				{
 					for (m=-1; m <= 1; m++)
 					{
-						sum += iData[(i+l) * iWidth * 3 + (j+m) * 3 + k];
+						sum += bitmapData[(i+l) * width * 3 + (j+m) * 3 + k];
 					}
 				}
-				iData[i*iWidth*3 + j*3 + k] = sum/9;
+				outData[i*width*3 + j*3 + k] = sum/9;
 				sum = 0;
 			}
 		}
@@ -169,11 +169,22 @@ int main(int argc, char* argv[])
 	printf("RED AVERAGE   = %" SCNuLEAST8 "\n", red_average);
 	printf("GREEN AVERAGE = %" SCNuLEAST8 "\n", green_average);
 	printf("BLUE AVERAGE  = %" SCNuLEAST8 "\n", blue_average);
-	
+
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 	/// TASK 1
 
+	meanData = (uint_least8_t*)malloc(bitmapInfoHeader.biWidth * bitmapInfoHeader.biHeight * 3);
+	mean_filter(bitmapData, meanData, bitmapInfoHeader.biWidth, bitmapInfoHeader.biHeight);
+
+	err = SaveBitmapFile("mean_filetered.bmp", &bitmapFileHeader, &bitmapInfoHeader, meanData);
+	if (err)
+	{
+		printf("Error trying to save bitmap\n");
+	}
+
+
 	// Free image data
+	free(meanData);
 	free(bitmapData);
 
 	return EXIT_SUCCESS;
