@@ -1,43 +1,53 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <inttypes.h>
 
 #include "circular_buffer.h"
 
-void CircularInit(CircularBuffer* circ_buf, size_t maxlen)
+int CircularInit(CircularBuffer* circ_buf, size_t maxlen)
 {
     DATA_TYPE** tmp = (DATA_TYPE**)&circ_buf->buffer;
     *tmp = (DATA_TYPE*)malloc(sizeof(DATA_TYPE)*maxlen);
-    circ_buf->head = circ_buf->tail = circ_buf->buffer;
-    circ_buf->full = false;
-    circ_buf->maxlen = maxlen;
+    if (*tmp)
+    {
+        CircularEmptyBuff(circ_buf);
+        circ_buf->maxlen = maxlen; // one field has been wasted because of missing full flag
+        return 1;
+    }
+    return 0;
 }
 
 void CircularDeinit(CircularBuffer* circ_buf)
 {
     DATA_TYPE** tmp = (DATA_TYPE**)&circ_buf->buffer;
-    free(*tmp);
+    if (*tmp)
+    {
+        free(*tmp);
+    }
     circ_buf->head = circ_buf->tail = *tmp = NULL;
-    circ_buf->full = false;
     circ_buf->maxlen = 0;
 }
 
 int CircularIsEmpty(const CircularBuffer* circ_buf)
 {
-    return (!circ_buf->full) && (circ_buf->head == circ_buf->tail);
+    return (circ_buf->head == circ_buf->tail);
 }
 
 int CircularIsFull(const CircularBuffer* circ_buf)
 {
-    return circ_buf->full;
+    const DATA_TYPE* end = circ_buf->head + 1;
+    if (end == circ_buf->buffer + circ_buf->maxlen)
+    {
+        end = circ_buf->buffer;
+    }
+    return (end == circ_buf->tail);
 }
 
-void CircularPut(CircularBuffer* circ_buf, DATA_TYPE data)
+int CircularPut(CircularBuffer* circ_buf, DATA_TYPE data)
 {
     if (CircularIsFull(circ_buf))
     {
         // no place to put element
-        return;
+        return 0;
     }
     *circ_buf->head = data;
     circ_buf->head++;
@@ -45,15 +55,15 @@ void CircularPut(CircularBuffer* circ_buf, DATA_TYPE data)
     {
         circ_buf->head = circ_buf->buffer;
     }
-    circ_buf->full = (circ_buf->head == circ_buf->tail);
+    return 1;
 }
 
-void CircularGet(CircularBuffer* circ_buf, DATA_TYPE* out)
+int CircularGet(CircularBuffer* circ_buf, DATA_TYPE* out)
 {
     if (CircularIsEmpty(circ_buf))
     {
         // no element to get
-        return;
+        return 0;
     }
     *out = *circ_buf->tail;
     circ_buf->tail++;
@@ -61,24 +71,24 @@ void CircularGet(CircularBuffer* circ_buf, DATA_TYPE* out)
     {
         circ_buf->tail = circ_buf->buffer;
     }
-    circ_buf->full = false;
+    return 1;
 }
 
 void CircularEmptyBuff(CircularBuffer* circ_buf)
 {
     circ_buf->head = circ_buf->tail = circ_buf->buffer;
-    circ_buf->full = false;
 }
 
-void CircularDump(const CircularBuffer* circ_buf)
+void CircularDump(const CircularBuffer* circ_buf, void(*print)(const DATA_TYPE* data))
 {
-    int64_t tmp;
     const DATA_TYPE* it;
     const DATA_TYPE* end;
+
     if (CircularIsEmpty(circ_buf))
     {
         return;
     }
+
     if (CircularIsFull(circ_buf))
     {
         if (circ_buf->head - 1 >= circ_buf->buffer)
@@ -94,10 +104,13 @@ void CircularDump(const CircularBuffer* circ_buf)
     {
         end = circ_buf->head;
     }
+
     for (it = circ_buf->tail; it != end;)
     {
-        tmp = *it;
-        printf("%d : %ld\n", abs(circ_buf->buffer - it), tmp);
+        printf("%d : ", abs(circ_buf->buffer - it));
+        (*print)(it);
+        printf("\n");
+
         it++;
         if (it == circ_buf->buffer + circ_buf->maxlen)
         {

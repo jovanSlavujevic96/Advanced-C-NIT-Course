@@ -34,8 +34,14 @@
  */
 
 #include <stdio.h>
+#include <inttypes.h>
 
 #include "circular_buffer.h"
+
+void print_data(const DATA_TYPE* data)
+{
+    printf("%" PRIdLEAST32, *data);
+}
 
 int main()
 {
@@ -52,19 +58,19 @@ int main()
     CircularGet(&buf, &i);
 
     printf("DUMP 1\n");
-    CircularDump(&buf);
+    CircularDump(&buf, &print_data);
 
     CircularPut(&buf, 502);
 
     printf("DUMP 2\n");
-    CircularDump(&buf);
+    CircularDump(&buf, &print_data);
 
     CircularGet(&buf, &i);
     CircularGet(&buf, &i);
     CircularPut(&buf, 404);
 
     printf("DUMP 3\n");
-    CircularDump(&buf);
+    CircularDump(&buf, &print_data);
 
     CircularDeinit(&buf);
 
