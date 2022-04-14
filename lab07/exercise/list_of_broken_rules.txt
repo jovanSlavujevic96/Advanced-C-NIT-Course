@@ -1,0 +1,13 @@
+"/home/ubuntu/AdvancedC/lab07/ti_tools/include/stdint.h", line 42: warning: (MISRA-C:2004 1.1/R) Ensure strict ANSI C mode (-ps) is enabled
+"/home/ubuntu/AdvancedC/lab07/ti_tools/include/stdint.h", line 205: warning: (MISRA-C:2004 19.7/A) A function should be used in preference to a function-like macro
+"/home/ubuntu/AdvancedC/lab07/ti_tools/include/stdint.h", line 206: warning: (MISRA-C:2004 19.7/A) A function should be used in preference to a function-like macro
+"/home/ubuntu/AdvancedC/lab07/ti_tools/include/stdint.h", line 207: warning: (MISRA-C:2004 19.7/A) A function should be used in preference to a function-like macro
+"/home/ubuntu/AdvancedC/lab07/ti_tools/include/stdint.h", line 208: warning: (MISRA-C:2004 19.7/A) A function should be used in preference to a function-like macro
+"/home/ubuntu/AdvancedC/lab07/ti_tools/include/stdint.h", line 209: warning: (MISRA-C:2004 19.7/A) A function should be used in preference to a function-like macro
+"/home/ubuntu/AdvancedC/lab07/ti_tools/include/stdint.h", line 210: warning: (MISRA-C:2004 19.7/A) A function should be used in preference to a function-like macro
+"/home/ubuntu/AdvancedC/lab07/ti_tools/include/stdint.h", line 212: warning: (MISRA-C:2004 19.7/A) A function should be used in preference to a function-like macro
+"/home/ubuntu/AdvancedC/lab07/ti_tools/include/stdint.h", line 213: warning: (MISRA-C:2004 19.7/A) A function should be used in preference to a function-like macro
+"/home/ubuntu/AdvancedC/lab07/ti_tools/include/stdint.h", line 215: warning: (MISRA-C:2004 19.7/A) A function should be used in preference to a function-like macro
+"/home/ubuntu/AdvancedC/lab07/ti_tools/include/stdint.h", line 216: warning: (MISRA-C:2004 19.7/A) A function should be used in preference to a function-like macro
+"/home/ubuntu/AdvancedC/lab07/ti_tools/include/stdint.h", line 220: warning: (MISRA-C:2004 19.7/A) A function should be used in preference to a function-like macro
+"/home/ubuntu/AdvancedC/lab07/ti_tools/include/stdint.h", line 221: warning: (MISRA-C:2004 19.7/A) A function should be used in preference to a function-like macro
